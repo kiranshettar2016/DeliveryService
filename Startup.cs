@@ -29,6 +29,15 @@ namespace DeliveryService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowMyOrigin",
+                builder => builder.WithOrigins("http://localhost:4200")
+                .AllowAnyMethod()
+                .AllowAnyHeader());
+            });
             services.AddDbContextPool<DSContext>(options => options.UseSqlServer(Configuration.GetConnectionString("CutomerDBConnection")));
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -48,6 +57,8 @@ namespace DeliveryService
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors("AllowMyOrigin");
             app.UseSwagger();
 
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
