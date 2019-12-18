@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -26,21 +26,21 @@ namespace DeliveryService.Controllers
 
         // GET: api/Queries/5
         [HttpGet]
-        [Route("distance/{distance}/floor/{floor}")]
-        public float GetTotalFare(float distance, int floor)
+        [Route("getTotalFare/distance/{distance}/floor/{floor}")]
+        public ActionResult GetTotalFare(float distance, int floor)
         {
-            return _query.GetTotalDeliveyFare(distance, floor);
+            return Ok(_query.GetTotalDeliveyFare(distance, floor));
         }
 
         [HttpGet]
-        [Route("distance/{distance}")]
+        [Route("getDistanceFare/distance/{distance}")]
         public float GetDeliveryDistanceFare(float distance)
         {
             return _query.GetDeliveryDistanceFare(distance);
         }
 
         [HttpGet]
-        [Route("floor/{floor}")]
+        [Route("getFloorDeliveryFare/floor/{floor}")]
         public float GetFloorDeliveryFare(int floor)
         {
             return _query.GetFloorDeliveryFare(floor);
